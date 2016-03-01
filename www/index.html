@@ -22,8 +22,14 @@
         <h1 class="title">Reddit Ionic Project</h1>
       </ion-header-bar>
       <ion-content>
-          <div ng-repeat="story in stories">
-            <a href="{{story.url}}" target="_blank">{{story.title}}</a> - {{story.domain}}
+          <div class="list">
+            <a class ="item item-thumbnail-left" href="{{story.url}}" target="_blank" ng-repeat="story in stories">
+                <img ng-src="{{story.thumbnail}}" ng-if="story.thumbnail.startsWith('http')">
+                <h2 class="story-title">{{story.title}}</h2>
+                <p>{{story.domain}}</p>
+                {{story.created_utc}}
+                
+            </a>
           </div>
       </ion-content>
     </ion-pane>
