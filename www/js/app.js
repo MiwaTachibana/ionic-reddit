@@ -2,12 +2,22 @@ angular.module('reddit', ['ionic'])
 
 .controller("RedditCtrl", function($http, $scope){
     $scope.stories = [];
-    $http.get('https://www.reddit.com/r/funny.json')
+    
+    $scope.loadMore = function(){
+        var params = {}
+        if ($scope.stories.length > 0){
+            params['after'] = $scope.stories[$scope.stories.length - 1].name;
+        }
+         $http.get('https://www.reddit.com/r/funny.json', {params: params})
         .success(function(response){
             angular.forEach(response.data.children, function(child){
                 $scope.stories.push(child.data)
             })
+            $scope.$broadcast('scroll.infiniteScrollComplete')
+
         })
+        
+    }
     
     
 })
